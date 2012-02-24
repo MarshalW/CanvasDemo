@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>简单动画</title>
+    <title></title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,9 +31,17 @@
 <script>
     window.onload = function () {
         var canvas = document.getElementById('myCanvas');
-        canvas.width = 1024;
-        canvas.height = 768;
+        canvas.width=1024;
+        canvas.height=768;
         var context = canvas.getContext('2d');
+
+        context.moveTo(100, 100);//移动到起点
+        context.lineTo(1024-100, 768-100);//从起点划线到端点
+        context.lineWidth = 10;//线的宽度
+        context.strokeStyle = "#ff0000";//线的颜色
+        context.lineCap = "butt";//端点边缘样式，默认是butt
+        context.stroke();//为线填充颜色，默认颜色黑
+        context.save();
 
         window.requestAnimFrame = (function (callback) {
             return window.requestAnimationFrame ||
@@ -51,10 +59,13 @@
 
         function animate() {
             context.clearRect(0, 0, canvas.width, canvas.height);//清除canvas
-            context.drawImage(image, x++, y++, image.width, image.height);
+            context.restore();
+            context.stroke();
+//            context.save();
+            context.drawImage(image,x++,y++,image.width,image.height);
 
-            window.requestAnimFrame(function () {
-                if (x > 1024) {
+            window.requestAnimFrame(function(){
+                if(x>1024){
                     console.log('animate stop');
                     return;
                 }
@@ -63,7 +74,7 @@
         }
 
         image.onload = function () {
-            context.drawImage(image, x, y, image.width, image.height);
+            context.drawImage(image,x,y,image.width,image.height);
             animate();
         };
 
