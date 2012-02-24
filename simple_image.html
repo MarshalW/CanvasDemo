@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>简单的图片</title>
+    <meta charset="UTF-8"/>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .content {
+            width: 1024px;
+            height: 768px;
+            margin: 0 auto;
+        }
+
+        #myCanvas {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <canvas id="myCanvas">
+    </canvas>
+</div>
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById('myCanvas');
+        canvas.width=1024;
+        canvas.height=768;
+        var context = canvas.getContext('2d');
+
+        var image = new Image();
+        var x = 50, y = 10;
+
+        image.onload = function () {
+            context.drawImage(image,x,y,image.width*.5,image.height*.5);//缩小到一半
+        };
+
+        image.src = 'tank.gif';
+    };
+</script>
+</body>
+</html>
